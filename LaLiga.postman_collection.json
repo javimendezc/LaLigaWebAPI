@@ -9,15 +9,52 @@
 			"name": "DevolverClub",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/clubes/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"clubes",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "ListaClubesAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/clubes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"clubes"
+					]
+				}
 			},
 			"response": []
 		},
@@ -25,23 +62,79 @@
 			"name": "ListaClubesPaginado",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/clubes/2/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"clubes",
+						"2",
+						"5"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "AddClubPrueba",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Nombre\": \"FC Prueba\",\r\n    \"Presupuesto\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/clubes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"clubes"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "UpdateClubPrueba",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 8,\r\n    \"Nombre\": \"FC Prueba-modificado\",\r\n    \"Presupuesto\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/clubes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"clubes"
+					]
+				}
 			},
 			"response": []
 		},
@@ -49,7 +142,19 @@
 			"name": "ListaJugadoresAll",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/jugadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"jugadores"
+					]
+				}
 			},
 			"response": []
 		},
@@ -57,7 +162,19 @@
 			"name": "ListaJugadoresLibres",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/jugadoreslibres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"jugadoreslibres"
+					]
+				}
 			},
 			"response": []
 		},
@@ -65,23 +182,79 @@
 			"name": "ListaJugadoresPaginado",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/jugadores/1/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"jugadores",
+						"1",
+						"3"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "AddJugadorPrueba",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"Nombre\": \"Jugador prueba\",\r\n        \"FechaNacimiento\": \"1998-01-01T00:00:00\",\r\n        \"Posicion\": \"Delantero\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/jugadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"jugadores"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "UpdateJugadorPrueba",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"Id\": 7,\r\n        \"Nombre\": \"Jugador prueba-modificado\",\r\n        \"FechaNacimiento\": \"1998-01-01T00:00:00\",\r\n        \"Posicion\": \"Delantero\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/jugadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"jugadores"
+					]
+				}
 			},
 			"response": []
 		},
@@ -89,23 +262,79 @@
 			"name": "ListaJugadoresClub",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/fichas/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"fichas",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "AddJugadoresClub",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"club\": {\r\n        \"Id\": 2\r\n    },\r\n    \"jugador\": {\r\n        \"Id\": 7\r\n    },\r\n    \"salario\": 100000000.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/fichas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"fichas"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "DeleteJugadorClub",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:53129/api/fichas/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"fichas",
+						"9"
+					]
+				}
 			},
 			"response": []
 		},
@@ -113,7 +342,20 @@
 			"name": "InfoJugadorClub",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:53129/api/infojugadorclub/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53129",
+					"path": [
+						"api",
+						"infojugadorclub",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
