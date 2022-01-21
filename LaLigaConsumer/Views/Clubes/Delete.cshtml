@@ -1,0 +1,63 @@
+﻿@model LaLigaConsumer.Models.JugadoresClub
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Desea eliminar el jugador?</h3>
+<div>
+    <h4>JugadoresClub</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.jugador.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jugador.Nombre)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.jugador.Posicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jugador.Posicion)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.club.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.club.Nombre)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.salario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salario)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Detail", new { id = Model.club.Id })
+        </div>
+    }
+</div>
