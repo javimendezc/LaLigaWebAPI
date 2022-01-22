@@ -28,3 +28,6 @@ La solución consta de 3 proyectos:
 Se entrega un script de la base de datos con las tablas y los datos que he utilizado para hacer pruebas
 
 Se entrega una colección postman con las llamadas a los servicios de la interfaz web api
+
+IMPORTANTE!!!
+Para ejecutar correctamente la solución desde el IDE, en las propiedades de inicio del archivo de solución, debe marcarse la opción "proyectos de inicio múltiples", y seleccionar la Acción "Iniciar" en "LaLigaConsumer" y "LaLigaWebAPI"
