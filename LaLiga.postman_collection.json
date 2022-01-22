@@ -7,16 +7,37 @@
 	"item": [
 		{
 			"name": "DevolverClub",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//var data = JSON.parse(responseBody);\r",
+							"//tests[\"Id es 2\"] = data.Id === 2;\r",
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     //pm.response.to.be.ok; // equivalente a decir que valide que sea 200\r",
+							"     //pm.response.to.be.withBody; // body tiene que exitir\r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var clubSchema = pm.environment.get('clubSchema');\r",
+							"    tv4.addSchema('clubSchema', clubSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), clubSchema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/clubes/2",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/clubes/2",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"clubes",
@@ -28,6 +49,35 @@
 		},
 		{
 			"name": "ListaClubesAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var lstClubesSchema = pm.environment.get('lstClubesSchema');\r",
+							"    tv4.addSchema('lstClubesSchema', lstClubesSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), lstClubesSchema)).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -44,12 +94,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/clubes",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/clubes",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"clubes"
@@ -60,21 +108,56 @@
 		},
 		{
 			"name": "ListaClubesPaginado",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var lstClubesSchema = pm.environment.get('lstClubesSchema');\r",
+							"    tv4.addSchema('lstClubesSchema', lstClubesSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), lstClubesSchema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test('Número de elementos corresponde con lo esperado', function(){\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    \r",
+							"    var elementosResult = data.length;\r",
+							"    var elementosCorrecto = elementosResult === pm.environment.get('ELEMENTOS_PAGINA');\r",
+							"\r",
+							"    pm.expect(elementosCorrecto).to.be.ok;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/clubes/2/5",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/clubes/{{NUMERO_PAGINA}}/{{ELEMENTOS_PAGINA}}",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"clubes",
-						"2",
-						"5"
+						"{{NUMERO_PAGINA}}",
+						"{{ELEMENTOS_PAGINA}}"
 					]
 				}
 			},
@@ -82,6 +165,17 @@
 		},
 		{
 			"name": "AddClubPrueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -95,12 +189,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/clubes",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/clubes",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"clubes"
@@ -111,6 +203,17 @@
 		},
 		{
 			"name": "UpdateClubPrueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -124,12 +227,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/clubes",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/clubes",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"clubes"
@@ -140,16 +241,35 @@
 		},
 		{
 			"name": "ListaJugadoresAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var lstJugadoresSchema = pm.environment.get('lstJugadoresSchema');\r",
+							"    console.log(lstJugadoresSchema);\r",
+							"    tv4.addSchema('lstJugadoresSchema', lstJugadoresSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), lstJugadoresSchema)).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/jugadores",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/jugadores",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"jugadores"
@@ -160,16 +280,34 @@
 		},
 		{
 			"name": "ListaJugadoresLibres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var lstJugadoresSchema = pm.environment.get('lstJugadoresSchema');\r",
+							"    console.log(lstJugadoresSchema);\r",
+							"    tv4.addSchema('lstJugadoresSchema', lstJugadoresSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), lstJugadoresSchema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/jugadoreslibres",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/jugadoreslibres",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"jugadoreslibres"
@@ -180,21 +318,48 @@
 		},
 		{
 			"name": "ListaJugadoresPaginado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta es formato JSON\", function () { \r",
+							"     pm.response.to.be.json; // además que sea un JSON válido\r",
+							"});\r",
+							"\r",
+							"pm.test('Esquema válido', function() {\r",
+							"    var lstJugadoresSchema = pm.environment.get('lstJugadoresSchema');\r",
+							"    console.log(lstJugadoresSchema);\r",
+							"    tv4.addSchema('lstJugadoresSchema', lstJugadoresSchema);\r",
+							"    pm.expect(tv4.validate(pm.response.json(), lstJugadoresSchema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test('Número de elementos corresponde con lo esperado', function(){\r",
+							"    var data = JSON.parse(responseBody);\r",
+							"    \r",
+							"    var elementosResult = data.length;\r",
+							"    var elementosCorrecto = elementosResult === pm.environment.get('ELEMENTOS_PAGINA');\r",
+							"\r",
+							"    pm.expect(elementosCorrecto).to.be.ok;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/jugadores/1/3",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/jugadores/{{NUMERO_PAGINA}}/{{ELEMENTOS_PAGINA}}",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"jugadores",
-						"1",
-						"3"
+						"{{NUMERO_PAGINA}}",
+						"{{ELEMENTOS_PAGINA}}"
 					]
 				}
 			},
@@ -215,12 +380,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/jugadores",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/jugadores",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"jugadores"
@@ -244,12 +407,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/jugadores",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/jugadores",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"jugadores"
@@ -264,12 +425,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/fichas/2",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/fichas/2",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"fichas",
@@ -294,12 +453,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/fichas",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/fichas",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"fichas"
@@ -323,12 +480,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:53129/api/fichas/9",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/fichas/9",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"fichas",
@@ -344,12 +499,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:53129/api/infojugadorclub/1",
-					"protocol": "http",
+					"raw": "{{baseUri}}/api/infojugadorclub/1",
 					"host": [
-						"localhost"
+						"{{baseUri}}"
 					],
-					"port": "53129",
 					"path": [
 						"api",
 						"infojugadorclub",
@@ -358,6 +511,62 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.globals.set(\"baseUri\", \"http://localhost:53129\");",
+					"",
+					"pm.environment.set(\"NUMERO_PAGINA\", 2);",
+					"pm.environment.set(\"ELEMENTOS_PAGINA\", 4);",
+					"",
+					"var lstClubesSchema = {",
+					"   \"type\": \"array\",",
+					"   \"items\": { \"$ref\": \"clubSchema\" }",
+					"};",
+					"",
+					"var clubSchema = {",
+					"   \"properties\": {",
+					"        \"Id\" : { \"type\": \"integer\" },",
+					"        \"Nombre\": { \"type\": \"string\" },",
+					"        \"Presupuesto\": {\"type\": \"number\"}",
+					"   }",
+					"};",
+					"",
+					"var lstJugadoresSchema = {",
+					"   \"type\": \"array\",",
+					"   \"items\": { \"$ref\": \"jugadoresSchema\" }",
+					"};",
+					"",
+					"var jugadoresSchema = {",
+					"   \"properties\": {",
+					"        \"Id\" : { \"type\": \"integer\" },",
+					"        \"Nombre\": { \"type\": \"string\" },",
+					"        \"FechaNacimiento\": { \"type\": \"date\" },",
+					"        \"Posicion\": { \"type\": \"string\" }",
+					"   }",
+					"};",
+					"",
+					"pm.environment.set('clubSchema', clubSchema);",
+					"pm.environment.set('lstClubesSchema', lstClubesSchema);",
+					"pm.environment.set('jugadoresSchema', jugadoresSchema);",
+					"pm.environment.set('lstJugadoresSchema', lstJugadoresSchema);",
+					"//tv4.addSchema('clubSchema', clubSchema);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"tests[\"Status code is 200\"] = responseCode.code === 200;"
+				]
+			}
 		}
 	]
 }
