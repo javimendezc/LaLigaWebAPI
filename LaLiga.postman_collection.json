@@ -113,7 +113,10 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"pm.sendRequest(pm.globals.get('baseUri') + \"/api/clubes\", function (err, response) {\r",
+							"    var dataListadoClubes = response.json();\r",
+							"    pm.environment.set('LISTADO_CLUBES', dataListadoClubes);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -143,22 +146,18 @@
 							"\r",
 							"pm.test('Elementos de la página corresponde con lo esperado', function(){\r",
 							"    var data = JSON.parse(responseBody);\r",
-							"    var dataListado;\r",
-							"    var resul = pm.sendRequest(pm.globals.get('baseUri') + \"/api/clubes\", function (err, response) {\r",
-							"        dataListado = response.json();\r",
-							"        var salida = true;\r",
-							"        for (i = 0; i < pm.environment.get('ELEMENTOS_PAGINA'); i++){\r",
-							"            var indexListado = ((pm.environment.get('NUMERO_PAGINA') - 1) * pm.environment.get('ELEMENTOS_PAGINA')) + i;\r",
-							"            var elListado = dataListado[indexListado];\r",
-							"            var elPagina = data[i];\r",
-							"            if (JSON.stringify(elListado) != JSON.stringify(elPagina)){\r",
-							"                salida = false;\r",
-							"                break;\r",
-							"            } \r",
-							"        }\r",
-							"        return salida;\r",
-							"    });\r",
-							"    pm.expect(resul).to.be.ok;\r",
+							"    var dataListado = pm.environment.get('LISTADO_CLUBES');\r",
+							"    var salida = true;\r",
+							"    for (i = 0; i < pm.environment.get('ELEMENTOS_PAGINA'); i++){\r",
+							"        var indexListado = ((pm.environment.get('NUMERO_PAGINA') - 1) * pm.environment.get('ELEMENTOS_PAGINA')) + i;\r",
+							"        var elListado = dataListado[indexListado];\r",
+							"        var elPagina = data[i];\r",
+							"        if (JSON.stringify(elListado) != JSON.stringify(elPagina)){\r",
+							"            salida = false;\r",
+							"            break;\r",
+							"        } \r",
+							"    }\r",
+							"    pm.expect(salida).to.be.ok;\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -228,6 +227,29 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test('Elemento existe', function(){\r",
+							"    //Sacamos la info del registro para disponer de ella en el siguiente test\r",
+							"    pm.sendRequest(pm.globals.get('baseUri') + \"/api/clubes/8\", function (err, response) {\r",
+							"        pm.globals.set('CLUB_UPDATED', response.json());\r",
+							"        pm.expect(response.json()).to.be.an('object')\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test('Elemento corresponde con la info modificada', function(){\r",
+							"    //console.log(JSON.stringify(JSON.parse(pm.request.body.raw)));\r",
+							"    //console.log(JSON.stringify(pm.globals.get('CLUB_UPDATED'))); \r",
+							"    pm.expect(JSON.stringify(JSON.parse(pm.request.body.raw))).to.be.equal(JSON.stringify(pm.globals.get('CLUB_UPDATED')));\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -239,7 +261,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 8,\r\n    \"Nombre\": \"FC Prueba-modificado\",\r\n    \"Presupuesto\": 10000\r\n}",
+					"raw": "{\r\n    \"Id\": 8,\r\n    \"Nombre\": \"FC Prueba-modificado\",\r\n    \"Presupuesto\": 10000\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -365,22 +387,31 @@
 							"\r",
 							"pm.test('Elementos de la página corresponde con lo esperado', function(){\r",
 							"    var data = JSON.parse(responseBody);\r",
-							"    var dataListado;\r",
-							"    var resul = pm.sendRequest(pm.globals.get('baseUri') + \"/api/jugadores\", function (err, response) {\r",
-							"        dataListado = response.json();\r",
-							"        var salida = true;\r",
-							"        for (i = 0; i < pm.environment.get('ELEMENTOS_PAGINA'); i++){\r",
-							"            var indexListado = ((pm.environment.get('NUMERO_PAGINA') - 1) * pm.environment.get('ELEMENTOS_PAGINA')) + i;\r",
-							"            var elListado = dataListado[indexListado];\r",
-							"            var elPagina = data[i];\r",
-							"            if (JSON.stringify(elListado) != JSON.stringify(elPagina)){\r",
-							"                salida = false;\r",
-							"                break;\r",
-							"            } \r",
-							"        }\r",
-							"        return salida;\r",
-							"    });\r",
-							"    pm.expect(resul).to.be.ok;\r",
+							"    var dataListado = pm.environment.get('LISTADO_JUGADORES');\r",
+							"    var salida = true;\r",
+							"    for (i = 0; i < pm.environment.get('ELEMENTOS_PAGINA'); i++){\r",
+							"        var indexListado = ((pm.environment.get('NUMERO_PAGINA') - 1) * pm.environment.get('ELEMENTOS_PAGINA')) + i;\r",
+							"        var elListado = dataListado[indexListado];\r",
+							"        var elPagina = data[i];\r",
+							"        if (JSON.stringify(elListado) != JSON.stringify(elPagina)){\r",
+							"            salida = false;\r",
+							"            break;\r",
+							"        } \r",
+							"    }\r",
+							"    pm.expect(salida).to.be.ok;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(pm.globals.get('baseUri') + \"/api/jugadores\", function (err, response) {\r",
+							"    dataListadoJugadores = response.json();\r",
+							"    pm.environment.set('LISTADO_JUGADORES', dataListadoJugadores);\r",
 							"});\r",
 							""
 						],
