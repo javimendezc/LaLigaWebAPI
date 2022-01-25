@@ -8,7 +8,7 @@ namespace LaLigaConsumer.Models
         [Required]
         public string Nombre { get; set; }
         [Required]
-        [DisplayFormat(DataFormatString = "{0:0.###}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
         public decimal Presupuesto { get; set; }
     }
 }
