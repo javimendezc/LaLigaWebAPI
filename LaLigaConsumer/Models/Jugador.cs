@@ -8,6 +8,7 @@ namespace LaLigaConsumer.Models
         public int Id { get; set; }
         [Required]
         public string Nombre { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? FechaNacimiento { get; set; }
         [Required]
         public string Posicion { get; set; }
