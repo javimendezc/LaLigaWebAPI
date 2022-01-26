@@ -40,6 +40,7 @@ namespace LaLigaConsumer.Controllers
                 {
                     jugadores = jugadores.FindAll(c => c.Nombre.ToLower().Contains(searchString.ToLower()) ||
                                                         c.Posicion.ToLower().Contains(searchString.ToLower()));
+                    pageNumber = (jugadores.Count <= pageSize) ? 1 : pageNumber;
                 }
                 return View(jugadores.ToPagedList(pageNumber, pageSize));
             }

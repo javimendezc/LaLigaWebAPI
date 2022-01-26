@@ -41,6 +41,7 @@ namespace LaLigaConsumer.Controllers
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     clubs = clubs.FindAll(c => c.Nombre.ToLower().Contains(searchString.ToLower()));
+                    pageNumber = (clubs.Count <= pageSize) ? 1 : pageNumber;
                 }
                 return View(clubs.ToPagedList(pageNumber, pageSize));
             }
@@ -131,6 +132,7 @@ namespace LaLigaConsumer.Controllers
                 {
                     jugadores = jugadores.FindAll(c => c.jugador.Nombre.ToLower().Contains(searchString.ToLower()) ||
                                                         c.jugador.Posicion.ToLower().Contains(searchString.ToLower()));
+                    pageNumber = (jugadores.Count <= pageSize) ? 1 : pageNumber;
                 }
 
                 var viewModel = new ViewModelDetail() { IdClub = id, jugadoresClub = jugadores.ToPagedList(pageNumber, pageSize) };
